@@ -20,7 +20,7 @@ public class SegurancaUtility {
 		return "";
 	}
 	
-	public static Boolean decodificarMD5(String A, String B) {
+	public static Boolean isValidoMD5(String A, String B) {
 		MessageDigest messageDigestA;
 		MessageDigest messageDigestB;
 		try {

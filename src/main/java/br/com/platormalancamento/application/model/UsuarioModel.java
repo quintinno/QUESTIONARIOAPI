@@ -2,7 +2,9 @@ package br.com.platormalancamento.application.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +44,7 @@ public class UsuarioModel implements Serializable {
 	@Column(name = "IDENTIFICADOR", unique = true, nullable = false)
 	private String identificador;
 	
+	@JsonIgnore
 	@Column(name = "SENHA", nullable = false)
 	private String senha;
 	
@@ -56,6 +59,14 @@ public class UsuarioModel implements Serializable {
 	private Boolean isAtivo;
 	
 	public UsuarioModel() { }
+
+	public UsuarioModel(String identificador, String senha, Date dataCricaoAtualizacao, String usuarioCriacaoAtualizacao, Boolean isAtivo) {
+		this.identificador = identificador;
+		this.senha = senha;
+		this.dataCricaoAtualizacao = dataCricaoAtualizacao;
+		this.usuarioCriacaoAtualizacao = usuarioCriacaoAtualizacao;
+		this.isAtivo = isAtivo;
+	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -111,6 +122,23 @@ public class UsuarioModel implements Serializable {
 
 	public void setIsAtivo(Boolean isAtivo) {
 		this.isAtivo = isAtivo;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UsuarioModel other = (UsuarioModel) obj;
+		return Objects.equals(codigo, other.codigo);
 	}
 	
 }
