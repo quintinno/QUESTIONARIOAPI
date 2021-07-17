@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,12 +20,23 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import br.com.platormalancamento.application.filter.AuthenticationFilter;
+import br.com.platormalancamento.application.service.UsuarioAutenticacaoService;
+import br.com.platormalancamento.application.utility.AutenticacaoUtility;
+
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AuthorizationConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private Environment environment;
+	
+	@Autowired
+	private UsuarioAutenticacaoService usuarioAutenticacaoService;
+	
+	@Autowired
+	private AutenticacaoUtility autenticacaoUtility;
 	
 	private static final String[] PUBLIC_URL = { };
 	
@@ -48,7 +63,14 @@ public class AuthorizationConfiguration extends WebSecurityConfigurerAdapter {
 		
 		// Garantir que a aplicacao trabalhe sem guardar sessao
 		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		
+		httpSecurity.addFilter(new AuthenticationFilter(authenticationManager(), autenticacaoUtility));
 	
+	}
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+		authenticationManagerBuilder.userDetailsService(usuarioAutenticacaoService).passwordEncoder(bCryptPasswordEncoder());
 	}
 	
 	@Bean
@@ -60,8 +82,14 @@ public class AuthorizationConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	public static BCryptPasswordEncoder bCryptPasswordEncoder() {
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+	@Override
+	protected AuthenticationManager authenticationManager() throws Exception {
+		return super.authenticationManager();
 	}
 	
 }

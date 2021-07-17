@@ -3,6 +3,7 @@ package br.com.platormalancamento.application.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +41,15 @@ public class PerfilModel implements Serializable {
 	@Column(name = "NOME_PERFIL", nullable = false)
 	private String nomePerfil;
 	
+	@Column(name = "DESCRICAO_PERFIL", nullable = false)
+	private String descricaoPerfil;
+	
 	public PerfilModel() { }
+
+	public PerfilModel(String nomePerfil, String descricaoPerfil) {
+		this.nomePerfil = nomePerfil;
+		this.descricaoPerfil = descricaoPerfil;
+	}
 
 	public PerfilModel(String nomePerfil) {
 		this.nomePerfil = nomePerfil;	
@@ -68,6 +77,31 @@ public class PerfilModel implements Serializable {
 
 	public void setUsuarioModelList(List<UsuarioModel> usuarioModelList) {
 		this.usuarioModelList = usuarioModelList;
+	}
+
+	public String getDescricaoPerfil() {
+		return descricaoPerfil;
+	}
+
+	public void setDescricaoPerfil(String descricaoPerfil) {
+		this.descricaoPerfil = descricaoPerfil;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PerfilModel other = (PerfilModel) obj;
+		return Objects.equals(codigo, other.codigo);
 	}
 
 }

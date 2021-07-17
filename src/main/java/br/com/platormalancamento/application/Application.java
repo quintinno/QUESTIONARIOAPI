@@ -29,16 +29,12 @@ public class Application implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::: QUESTIONARIOAPI :::::::::::::::::::::::::::::::::::::::::::::::::");
 		this.cadastrarUsuario();
-//		this.recuperarUsuario();
 	}
 	
 	public void cadastrarUsuario() {
-		PerfilModel perfilModel1 = new PerfilModel();
-		PerfilModel perfilModel2 = new PerfilModel();
-		PerfilModel perfilModel3 = new PerfilModel();
-			perfilModel1.setNomePerfil("ADMINISTRADOR");
-			perfilModel2.setNomePerfil("PUBLICO_ALVO");
-			perfilModel3.setNomePerfil("APLICADOR");
+		PerfilModel perfilModel1 = new PerfilModel("ADMINISTRADOR_QUESTIONARIO", "ROLE_ADMINISTRADOR_QUESTIONARIO");
+		PerfilModel perfilModel2 = new PerfilModel("PUBLICO_ALVO_QUESTIONARIO", "ROLE_PUBLICO_ALVO_QUESTIONARIO");
+		PerfilModel perfilModel3 = new PerfilModel("APLICADOR_QUESTIONARIO", "ROLE_APLICADOR_QUESTIONARIO");
 			this.perfilService.save(perfilModel1);
 			this.perfilService.save(perfilModel2);
 			this.perfilService.save(perfilModel3);
@@ -52,14 +48,6 @@ public class Application implements CommandLineRunner {
 			usuarioModel1.getPerfilModelList().add(perfilModel2);
 			usuarioModel1.getPerfilModelList().add(perfilModel3);
 			this.usuarioService.save(usuarioModel1);
-	}
-	
-	public void recuperarUsuario() {
-		for(UsuarioModel usuarioModel : this.usuarioService.findAll()) {
-			System.out.println("IDENTIFICADOR: " + usuarioModel.getIdentificador());
-			System.out.println("SENHA: " + usuarioModel.getSenha());
-			System.out.println("ATIVO: " + usuarioModel.getIsAtivo());
-		}
 	}
 
 }
