@@ -27,7 +27,7 @@ public class Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::: QUESTIONARIOAPI :::::::::::::::::::::::::::::::::::::::::::::::::");
+		System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: QUESTIONARIOAPI ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 		this.cadastrarUsuario();
 //		this.recuperarUsuario();
 	}
