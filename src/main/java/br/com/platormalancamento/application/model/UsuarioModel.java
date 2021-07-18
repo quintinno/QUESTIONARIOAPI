@@ -45,8 +45,9 @@ public class UsuarioModel implements UserDetails, Serializable {
 
 	@Column(name = "IDENTIFICADOR", unique = true, nullable = false)
 	private String identificador;
-	
-	@Column(name = "SENHA", nullable = false)
+
+	@JsonIgnore
+	@Column(name = "CHAVE", nullable = false)
 	private String chave;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -78,6 +79,7 @@ public class UsuarioModel implements UserDetails, Serializable {
 		return this.identificador;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getPassword() {
 		return this.chave;

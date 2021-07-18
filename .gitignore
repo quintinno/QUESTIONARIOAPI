@@ -1,0 +1,16 @@
+target/
+*.iml
+.idea
+*.class
+
+**/.project
+**/.classpath
+**/.settings/
+blog/bin/
+**/.tern-project
+
+**/*.iml
+**/.idea
+**/.gradle
+
+hs_err_pid*

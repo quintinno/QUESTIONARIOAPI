@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import br.com.platormalancamento.application.utility.SegurancaUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.platormalancamento.application.model.UsuarioModel;
@@ -18,9 +21,12 @@ public class UsuarioService implements UsuarioServiceInterface, Serializable {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Override
 	public UsuarioModel save(UsuarioModel usuarioModel) {
-//		usuarioModel.setSenha(SegurancaUtility.codificarMD5(usuarioModel.getSenha()));
+		usuarioModel.setChave(passwordEncoder.encode(usuarioModel.getChave()));
 		usuarioModel.setIsAtivo(true);
 		usuarioModel.setDataCricaoAtualizacao(new Date());
 		usuarioModel.setUsuarioCriacaoAtualizacao("CADASTRO_USUARIO_SISTEMA");

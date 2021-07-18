@@ -1,9 +1,8 @@
 package br.com.platormalancamento.application.utility;
 
+import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import javax.xml.bind.DatatypeConverter;
 
 public class SegurancaUtility {
 	
