@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import br.com.platormalancamento.application.model.UsuarioModel;
 
 @Repository
-@CrossOrigin(origins = "http://localhost:8080", originPatterns = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8080")
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long> {
-	
 	UsuarioModel findByIdentificador(String identificador);
-	
 }

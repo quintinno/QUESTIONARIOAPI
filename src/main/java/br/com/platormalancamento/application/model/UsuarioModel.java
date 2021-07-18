@@ -2,6 +2,7 @@ package br.com.platormalancamento.application.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -18,11 +19,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "TB_USUARIO")
-public class UsuarioModel implements Serializable {
+public class UsuarioModel implements UserDetails, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -32,7 +36,7 @@ public class UsuarioModel implements Serializable {
 	private Long codigo;
 	
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "TB_USUARIO_PERFIL", joinColumns = 
 		@JoinColumn(name = "ID_USUARIO", referencedColumnName = "codigo", nullable = false), inverseJoinColumns = 
 		@JoinColumn(name = "ID_PERFIL", referencedColumnName = "codigo", nullable = false), uniqueConstraints = { 
@@ -43,7 +47,7 @@ public class UsuarioModel implements Serializable {
 	private String identificador;
 	
 	@Column(name = "SENHA", nullable = false)
-	private String senha;
+	private String chave;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATA_CRIACAO_ATUALIZACAO", nullable = false)
@@ -56,6 +60,48 @@ public class UsuarioModel implements Serializable {
 	private Boolean isAtivo;
 	
 	public UsuarioModel() { }
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		List<AuthorityModel> authorityModelList = new ArrayList<>();
+		
+		this.perfilModelList.forEach( perfilModel -> {
+			authorityModelList.add(new AuthorityModel(perfilModel.getNomePerfil()));
+		});
+		
+		return authorityModelList;
+	}
+	
+	@Override
+	public String getUsername() {
+		return this.identificador;
+	}
+
+	@Override
+	public String getPassword() {
+		return this.chave;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 
 	public Long getCodigo() {
 		return codigo;
@@ -67,10 +113,6 @@ public class UsuarioModel implements Serializable {
 
 	public String getIdentificador() {
 		return identificador;
-	}
-
-	public String getSenha() {
-		return senha;
 	}
 
 	public java.util.Date getDataCricaoAtualizacao() {
@@ -97,10 +139,6 @@ public class UsuarioModel implements Serializable {
 		this.identificador = identificador;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
 	public void setDataCricaoAtualizacao(java.util.Date dataCricaoAtualizacao) {
 		this.dataCricaoAtualizacao = dataCricaoAtualizacao;
 	}
@@ -111,6 +149,14 @@ public class UsuarioModel implements Serializable {
 
 	public void setIsAtivo(Boolean isAtivo) {
 		this.isAtivo = isAtivo;
+	}
+
+	public String getChave() {
+		return chave;
+	}
+
+	public void setChave(String chave) {
+		this.chave = chave;
 	}
 	
 }

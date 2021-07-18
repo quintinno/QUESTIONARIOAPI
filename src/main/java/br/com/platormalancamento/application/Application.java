@@ -29,7 +29,6 @@ public class Application implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::: QUESTIONARIOAPI :::::::::::::::::::::::::::::::::::::::::::::::::");
 		this.cadastrarUsuario();
-//		this.recuperarUsuario();
 	}
 	
 	public void cadastrarUsuario() {
@@ -44,7 +43,7 @@ public class Application implements CommandLineRunner {
 			this.perfilService.save(perfilModel3);
 		UsuarioModel usuarioModel1 = new UsuarioModel();
 			usuarioModel1.setIdentificador("desenvolvimento");
-			usuarioModel1.setSenha("desenvolvimento");
+			usuarioModel1.setChave("desenvolvimento");
 			usuarioModel1.setDataCricaoAtualizacao(new Date());
 			usuarioModel1.setUsuarioCriacaoAtualizacao("QUESTIONARIO_CARGA_BASICA");
 			usuarioModel1.setIsAtivo(true);
@@ -52,14 +51,6 @@ public class Application implements CommandLineRunner {
 			usuarioModel1.getPerfilModelList().add(perfilModel2);
 			usuarioModel1.getPerfilModelList().add(perfilModel3);
 			this.usuarioService.save(usuarioModel1);
-	}
-	
-	public void recuperarUsuario() {
-		for(UsuarioModel usuarioModel : this.usuarioService.findAll()) {
-			System.out.println("IDENTIFICADOR: " + usuarioModel.getIdentificador());
-			System.out.println("SENHA: " + usuarioModel.getSenha());
-			System.out.println("ATIVO: " + usuarioModel.getIsAtivo());
-		}
 	}
 
 }
