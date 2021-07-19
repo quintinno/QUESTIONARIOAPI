@@ -2,20 +2,20 @@ package br.com.platormalancamento.application.dto;
 
 public class JwtResponseDTO {
 	
-	public String TOKEN;
+	public String token;
 	
 	public JwtResponseDTO() { }
 
-	public JwtResponseDTO(String tOKEN) {
-		TOKEN = tOKEN;
+	public JwtResponseDTO(String token) {
+		this.token = token;
 	}
 
-	public String getTOKEN() {
-		return TOKEN;
+	public String getToken() {
+		return token;
 	}
 
-	public void setTOKEN(String tOKEN) {
-		TOKEN = tOKEN;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

@@ -45,14 +45,15 @@ public class AutorizadorConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity
 			.csrf().disable()
 			.cors().disable()
-			.authorizeRequests().antMatchers("/autenticador").permitAll()
+			.authorizeRequests().antMatchers("/autenticador", "/gerar-token").permitAll()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.anyRequest().authenticated().and()
 			.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPointConfiguration).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-	
+
+	@Deprecated
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
