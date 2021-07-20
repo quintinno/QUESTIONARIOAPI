@@ -1,15 +1,14 @@
 package br.com.platormalancamento.application.controller;
 
-import java.io.Serializable;
-import java.util.List;
-
+import br.com.platormalancamento.application.model.UsuarioModel;
+import br.com.platormalancamento.application.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.platormalancamento.application.model.UsuarioModel;
-import br.com.platormalancamento.application.service.UsuarioService;
+import java.io.Serializable;
+import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
@@ -21,7 +20,7 @@ public class UsuarioController implements Serializable {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	@PostMapping
+	@PostMapping("/registrar-usuario")
 	public ResponseEntity<UsuarioModel> save(@RequestBody UsuarioModel usuarioModel) {
 		return ResponseEntity.ok(this.usuarioService.save(usuarioModel));
 	}

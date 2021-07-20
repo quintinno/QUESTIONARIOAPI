@@ -1,28 +1,15 @@
 package br.com.platormalancamento.application.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "TB_USUARIO")
@@ -46,7 +33,6 @@ public class UsuarioModel implements UserDetails, Serializable {
 	@Column(name = "IDENTIFICADOR", unique = true, nullable = false)
 	private String identificador;
 
-	@JsonIgnore
 	@Column(name = "CHAVE", nullable = false)
 	private String chave;
 	
@@ -79,7 +65,6 @@ public class UsuarioModel implements UserDetails, Serializable {
 		return this.identificador;
 	}
 
-	@JsonIgnore
 	@Override
 	public String getPassword() {
 		return this.chave;
@@ -109,48 +94,24 @@ public class UsuarioModel implements UserDetails, Serializable {
 		return codigo;
 	}
 
-	public List<PerfilModel> getPerfilModelList() {
-		return perfilModelList;
-	}
-
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public java.util.Date getDataCricaoAtualizacao() {
-		return dataCricaoAtualizacao;
-	}
-
-	public String getUsuarioCriacaoAtualizacao() {
-		return usuarioCriacaoAtualizacao;
-	}
-
-	public Boolean getIsAtivo() {
-		return isAtivo;
-	}
-
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}
+
+	public List<PerfilModel> getPerfilModelList() {
+		return perfilModelList;
 	}
 
 	public void setPerfilModelList(List<PerfilModel> perfilModelList) {
 		this.perfilModelList = perfilModelList;
 	}
 
+	public String getIdentificador() {
+		return identificador;
+	}
+
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
-	}
-
-	public void setDataCricaoAtualizacao(java.util.Date dataCricaoAtualizacao) {
-		this.dataCricaoAtualizacao = dataCricaoAtualizacao;
-	}
-
-	public void setUsuarioCriacaoAtualizacao(String usuarioCriacaoAtualizacao) {
-		this.usuarioCriacaoAtualizacao = usuarioCriacaoAtualizacao;
-	}
-
-	public void setIsAtivo(Boolean isAtivo) {
-		this.isAtivo = isAtivo;
 	}
 
 	public String getChave() {
@@ -160,5 +121,29 @@ public class UsuarioModel implements UserDetails, Serializable {
 	public void setChave(String chave) {
 		this.chave = chave;
 	}
-	
+
+	public Date getDataCricaoAtualizacao() {
+		return dataCricaoAtualizacao;
+	}
+
+	public void setDataCricaoAtualizacao(Date dataCricaoAtualizacao) {
+		this.dataCricaoAtualizacao = dataCricaoAtualizacao;
+	}
+
+	public String getUsuarioCriacaoAtualizacao() {
+		return usuarioCriacaoAtualizacao;
+	}
+
+	public void setUsuarioCriacaoAtualizacao(String usuarioCriacaoAtualizacao) {
+		this.usuarioCriacaoAtualizacao = usuarioCriacaoAtualizacao;
+	}
+
+	public Boolean getIsAtivo() {
+		return isAtivo;
+	}
+
+	public void setIsAtivo(Boolean ativo) {
+		isAtivo = ativo;
+	}
+
 }

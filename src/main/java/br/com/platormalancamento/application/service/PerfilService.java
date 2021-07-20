@@ -1,12 +1,12 @@
 package br.com.platormalancamento.application.service;
 
-import java.io.Serializable;
-
+import br.com.platormalancamento.application.model.PerfilModel;
+import br.com.platormalancamento.application.repository.PerfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.platormalancamento.application.model.PerfilModel;
-import br.com.platormalancamento.application.repository.PerfilRepository;
+import java.io.Serializable;
+import java.util.List;
 
 @Service
 public class PerfilService implements Serializable, PerfilServiceInterface {
@@ -20,5 +20,15 @@ public class PerfilService implements Serializable, PerfilServiceInterface {
 	public PerfilModel save(PerfilModel perfilModel) {
 		return this.perfilRepository.save(perfilModel);
 	}
-	
+
+	@Override
+	public List<PerfilModel> findAll() {
+		return this.perfilRepository.findAll();
+	}
+
+	@Override
+	public PerfilModel findByNomePerfil(String nomePerfil) {
+		return this.perfilRepository.findByNomePerfil(nomePerfil);
+	}
+
 }

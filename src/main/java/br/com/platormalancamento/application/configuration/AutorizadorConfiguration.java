@@ -1,5 +1,7 @@
 package br.com.platormalancamento.application.configuration;
 
+import br.com.platormalancamento.application.filter.JwtAuthenticationFilter;
+import br.com.platormalancamento.application.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import br.com.platormalancamento.application.service.UserDetailsService;
-import br.com.platormalancamento.application.filter.JwtAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -37,7 +34,7 @@ public class AutorizadorConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.parentAuthenticationManager(authenticationManagerBean());
-		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(this.passwordEncoder());
+		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(this.bCryptPasswordEncoder());
 	}
 	
 	@Override
@@ -45,7 +42,7 @@ public class AutorizadorConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity
 			.csrf().disable()
 			.cors().disable()
-			.authorizeRequests().antMatchers("/autenticador", "/gerar-token", "/usuario-corrente").permitAll()
+			.authorizeRequests().antMatchers("/autenticador", "/gerar-token", "/usuario-corrente", "/usuario/registrar-usuario").permitAll()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.anyRequest().authenticated().and()
 			.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPointConfiguration).and()
@@ -53,10 +50,9 @@ public class AutorizadorConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
-	@Deprecated
 	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 	
 	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)

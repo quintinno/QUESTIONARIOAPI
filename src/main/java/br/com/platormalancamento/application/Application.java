@@ -1,16 +1,15 @@
 package br.com.platormalancamento.application;
 
-import java.util.Date;
-
+import br.com.platormalancamento.application.model.PerfilModel;
+import br.com.platormalancamento.application.model.UsuarioModel;
+import br.com.platormalancamento.application.service.PerfilService;
+import br.com.platormalancamento.application.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import br.com.platormalancamento.application.model.PerfilModel;
-import br.com.platormalancamento.application.model.UsuarioModel;
-import br.com.platormalancamento.application.service.PerfilService;
-import br.com.platormalancamento.application.service.UsuarioService;
+import java.util.Date;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
