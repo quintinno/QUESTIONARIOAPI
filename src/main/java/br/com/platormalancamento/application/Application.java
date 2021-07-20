@@ -42,15 +42,39 @@ public class Application implements CommandLineRunner {
 			this.perfilService.save(perfilModel2);
 			this.perfilService.save(perfilModel3);
 		UsuarioModel usuarioModel1 = new UsuarioModel();
-			usuarioModel1.setIdentificador("desenvolvimento");
-			usuarioModel1.setChave("desenvolvimento");
+			usuarioModel1.setIdentificador("administrador");
+			usuarioModel1.setChave("administrador");
 			usuarioModel1.setDataCricaoAtualizacao(new Date());
 			usuarioModel1.setUsuarioCriacaoAtualizacao("QUESTIONARIO_CARGA_BASICA");
 			usuarioModel1.setIsAtivo(true);
 			usuarioModel1.getPerfilModelList().add(perfilModel1);
-			usuarioModel1.getPerfilModelList().add(perfilModel2);
-			usuarioModel1.getPerfilModelList().add(perfilModel3);
 			this.usuarioService.save(usuarioModel1);
+		UsuarioModel usuarioModel2 = new UsuarioModel();
+			usuarioModel2.setIdentificador("publico_alvo");
+			usuarioModel2.setChave("publico_alvo");
+			usuarioModel2.setDataCricaoAtualizacao(new Date());
+			usuarioModel2.setUsuarioCriacaoAtualizacao("QUESTIONARIO_CARGA_BASICA");
+			usuarioModel2.setIsAtivo(true);
+			usuarioModel2.getPerfilModelList().add(perfilModel2);
+			this.usuarioService.save(usuarioModel2);
+		UsuarioModel usuarioModel3 = new UsuarioModel();
+			usuarioModel3.setIdentificador("aplicador");
+			usuarioModel3.setChave("aplicador");
+			usuarioModel3.setDataCricaoAtualizacao(new Date());
+			usuarioModel3.setUsuarioCriacaoAtualizacao("QUESTIONARIO_CARGA_BASICA");
+			usuarioModel3.setIsAtivo(true);
+			usuarioModel3.getPerfilModelList().add(perfilModel3);
+			this.usuarioService.save(usuarioModel3);
+		UsuarioModel usuarioModel4 = new UsuarioModel();
+			usuarioModel4.setIdentificador("desenvolvimento");
+			usuarioModel4.setChave("desenvolvimento");
+			usuarioModel4.setDataCricaoAtualizacao(new Date());
+			usuarioModel4.setUsuarioCriacaoAtualizacao("QUESTIONARIO_CARGA_BASICA");
+			usuarioModel4.setIsAtivo(true);
+			usuarioModel4.getPerfilModelList().add(perfilModel1);
+			usuarioModel4.getPerfilModelList().add(perfilModel2);
+			usuarioModel4.getPerfilModelList().add(perfilModel3);
+			this.usuarioService.save(usuarioModel4);
 	}
 
 }

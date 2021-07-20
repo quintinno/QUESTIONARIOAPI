@@ -45,7 +45,7 @@ public class AutorizadorConfiguration extends WebSecurityConfigurerAdapter {
 		httpSecurity
 			.csrf().disable()
 			.cors().disable()
-			.authorizeRequests().antMatchers("/autenticador", "/gerar-token").permitAll()
+			.authorizeRequests().antMatchers("/autenticador", "/gerar-token", "/usuario-corrente").permitAll()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()
 			.anyRequest().authenticated().and()
 			.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPointConfiguration).and()

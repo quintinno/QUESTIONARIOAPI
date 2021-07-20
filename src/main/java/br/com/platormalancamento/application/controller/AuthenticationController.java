@@ -53,7 +53,7 @@ public class AuthenticationController {
 	}
 
 	@GetMapping("usuario-corrente")
-	public UsuarioModel recuperarUsuarioConrrente(Principal principal) {
+	public UsuarioModel recuperarUsuarioConrrente(Principal principal) throws Exception {
 		return (UsuarioModel) this.userDetailsService.loadUserByUsername(principal.getName());
 	}
 

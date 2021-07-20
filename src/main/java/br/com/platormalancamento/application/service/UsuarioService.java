@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.platormalancamento.application.model.UsuarioModel;
 import br.com.platormalancamento.application.repository.UsuarioRepository;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.transaction.Transactional;
 
 @Service
 public class UsuarioService implements UsuarioServiceInterface, Serializable {
@@ -36,6 +39,11 @@ public class UsuarioService implements UsuarioServiceInterface, Serializable {
 	@Override
 	public List<UsuarioModel> findAll() {
 		return this.usuarioRepository.findAll();
+	}
+
+	@Transactional
+	public UsuarioModel recuperarUsuario(UsuarioModel usuarioModel) {
+		return this.usuarioRepository.findByIdentificador(usuarioModel.getIdentificador());
 	}
 
 }
